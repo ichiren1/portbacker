@@ -1,0 +1,9 @@
+﻿{% extends "layout.html" %}
+{% block body %}
+<h3>{{goal_text}}</h3><br><br>
+<form method = "post" action = "/goal">
+	<textarea name="goal_text" rows="5" cols="40"></textarea><br>
+	<input type = "submit" value="設定">
+</form>
+<a href = "/">戻る</a>
+{% endblock %}
