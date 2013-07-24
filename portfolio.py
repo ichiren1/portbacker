@@ -1,7 +1,25 @@
+# -*- coding:utf-8 -*-
+
 import sys 
 from flask import Flask, request, redirect, url_for, render_template
+from pymongo import Connection
 
 app= Flask(__name__)
+
+#コネクション作成
+con = Connection('localhost', 27017)
+
+#コネクションからtestデータベースを取得
+db = con.test
+
+# 以下のように記載することも可能
+# db = con['test']
+
+#testデータベースからfooコレクションを取得
+col = db.portfolios
+
+# 以下のように記載することも可能
+# col = db['foo']
 
 @app.route('/',methods=['GET'])
 def index_page():
@@ -24,6 +42,15 @@ def portfolio():
 def aaa():
     return render_template("index.html", title="Flaski")
 
+
+print "========find_one========"
+print col.find_one()
+
+print "========find========"
+for data in col.find():
+    print data
+
 if __name__ == '__main__':
 	app.debug = True
 	app.run()
+
