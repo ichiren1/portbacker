@@ -44,7 +44,7 @@ def mongo_get():
   #testデータベースからfooコレクションを取得
   col = db.portfolios
 
-  return render_template("mongo.html", col=col)
+  return render_template("mongo.html", db=db)
 
 @app.route('/mongo', methods=['POST'])
 def mongo_post():

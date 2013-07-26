@@ -1,10 +1,88 @@
 {% extends "layout.html" %}
 {% block body %}
+<style type="text/css">
+  /* 参考：http://allabout.co.jp/gm/gc/23969/file/tabsample.html
+    　参考：http://php-fan.org/sample_code_demo/bootstrap.html */
+  /* 表示領域全体 */
+  div.sample div.sampletabbox { margin: 0px; padding: 0px; width: 70%; }
+  /* タブ部分 */
+  div.sample p.sampletabs { margin: 0px; padding: 0px; }
+  div.sample p.sampletabs a { display: block; width: 5em; float: left; margin: 0px 1px 0px 0px; padding: 3px; text-align: center; }
+  /*
+  div.sample p.sampletabs a.portfolios { background-color: blue;  color: white; }
+  div.sample p.sampletabs a.system.indexes { background-color: #aaaa00; color: white; }
+  div.sample p.sampletabs a.sampletab3 { background-color: red;   color: white; }
+  */
+  div.sample p.sampletabs a:hover { color: yellow;}
+  
+  /* 対応表示領域 */
+  div.sample div.sampletab { height: 200px; overflow: auto; clear: left; }
+  /*
+  div.sample div#portfolios { border: 2px solid blue;  background-color: #ccffff; }
+  div.sample div#system.indexes { border: 2px solid #aaaa00; background-color: #ffffcc; }
+  div.sample div#sampletab3 { border: 2px solid red;   background-color: #ffcccc; }
+  div.sample div.sampletab p { margin: 0.5em; }*/
+  /* 装飾（今回のテクニックとは無関係） *//*
+  div.sample div.sampletab ul, div.sampletab ol { margin-top: 0.5em; margin-bottom: 0.5em; }
+  div.sample div.sampletab li { line-height: 1.35; margin-bottom: 0px; margin-top: 0px; }
+  div.sample div.sampletab ul li { list-style-type: disc; }*/
+  p.tabhead { font-weight: bold; border-bottom: 3px double gray; }
+</style>
+
+<script type="text/javascript">
+  function ChangeTab(tabname) {
+    // 全部消す
+    {% for col in db.collection_names() %}
+      document.getElementById('{{col}}').style.display = 'none';
+    {% endfor %}
+    // 指定箇所のみ表示
+    if(tabname) {
+      document.getElementById(tabname).style.display = 'block';
+    }
+  }
+</script>
+
 <h1>mongodbページ</h1>
 
-{% for data in col.find() %}
-  <p>{{data}}</p>
-{% endfor %}
+<div class="sample">
+  <div class="sampletabbox">
+    <ul class="nav nav-tabs">
+      {% for col in db.collection_names() %}
+        {% if col != "system.indexes" %}
+          <li><a onclick="ChangeTab('{{col}}'); return false;" class="{{col}}" href="#{{col}}">{{col}}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    {% for col in db.collection_names() %}
+      <div class="tab-pane" id="{{col}}">
+        <p class="tabhead">{{col}}</p>
+        <div class="sampletab">
+          <table class="table">
+            <tr>
+            {% for e in db[col].find_one() %}
+              <th>{{e}}</th>
+            {% endfor %}
+            </tr>
+            {% for doc in db[col].find() %}
+              <tr>
+              {% for e in doc %}
+                <td>{{doc[e]}}</td>
+              {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script type="text/javascript"><!--
+    // デフォルトのタブを選択
+    ChangeTab('portfolios');
+  // --></script>
+</div>
+
+<br><br>
 
 <p>インサートテスト</p>
 <form method="post" action="/mongo">
