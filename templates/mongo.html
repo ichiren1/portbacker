@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>mongodbページ</h1>
+
+{% for data in col.find() %}
+  <p>{{data}}</p>
+{% endfor %}
+
+<p>インサートテスト</p>
+<form method="post" action="/mongo">
+  <p>
+    <input name="public" type="radio" value="true" checked="checked">true
+    <input name="public" type="radio" value="false">false
+  </p>
+  <p>
+    owner
+    <input name="owner" type="text">
+  </p>
+  <p>
+    text
+    <textarea name="text" rows="5" cols="40"></textarea>
+  </p>
+  <p>
+    <input type="submit" class="btn btn-primary" name="button" value="設定">
+    <input type="button" class="btn btn" value="TOPに戻る" onclick="location.href='/'">
+  </p>
+</form>
+
+<p>削除テスト</p>
+<form method="post" action="/mongo">
+  <p>
+    消したいオーナー名
+    <input name="owner" type="text">
+  </p>
+  <p>
+    <input type="submit" class="btn btn-primary" name="button" value="削除">
+    <input type="button" class="btn btn" value="TOPに戻る" onclick="location.href='/'">
+  </p>
+</form>
+{% endblock %}

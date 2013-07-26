@@ -10,13 +10,13 @@ app= Flask(__name__)
 con = Connection('localhost', 27017)
 
 #コネクションからtestデータベースを取得
-db = con.test
+db = con.portbacker
 
 # 以下のように記載することも可能
 # db = con['test']
 
 #testデータベースからfooコレクションを取得
-col = db.portfolios
+# col = db.portfolios
 
 # 以下のように記載することも可能
 # col = db['foo']
@@ -38,17 +38,38 @@ def goal_post():
 def portfolio():
 	return render_template("portfolio.html")
 
-@app.route('/test')
-def aaa():
-    return render_template("index.html", title="Flaski")
 
+@app.route('/mongo', methods=['GET'])
+def mongo_get():
+  #testデータベースからfooコレクションを取得
+  col = db.portfolios
 
-print "========find_one========"
-print col.find_one()
+  return render_template("mongo.html", col=col)
 
-print "========find========"
-for data in col.find():
-    print data
+@app.route('/mongo', methods=['POST'])
+def mongo_post():
+  col = db.portfolios
+  if request.form['button'] == u"設定":
+    if request.form['public'] == "true":
+      public = True
+    else:
+      public = False
+    owner = request.form['owner']
+    text = request.form['text']
+
+    col.insert({"public":public,"owner":owner,"text":text})
+  else:
+    col.remove({"owner":request.form['owner']})
+
+  
+  return render_template("mongo_post.html")
+
+# print "========find_one========"
+# print col.find_one()
+
+# print "========find========"
+# for data in col.find():
+#     print data
 
 if __name__ == '__main__':
 	app.debug = True
