@@ -49,10 +49,7 @@ def mongo_get():
 def mongo_post():
     col = db.portfolios
     if request.form['button'] == u"設定":
-        if request.form['public'] == "true":
-            public = True
-        else:
-            public = False
+        public = request.form['public'] == "true"
         owner = request.form['owner']
         text = request.form['text']
 
