@@ -38,6 +38,10 @@ def goal_post():
 def portfolio():
     return render_template("portfolio.html")
 
+@app.route('/artifact')
+def artifact():
+    return render_template("artifact.html")
+
 @app.route('/mongo', methods=['GET'])
 def mongo_get():
     # testデータベースからfooコレクションを取得
