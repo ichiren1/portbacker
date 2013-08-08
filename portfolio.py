@@ -21,14 +21,18 @@ db = con.portbacker
 # 以下のように記載することも可能
 # col = db['foo']
 
+
+
 @app.route('/', methods=['GET'])
 def index_page():
     return render_template("top.html")
 
+# goal.htmlにリンク
 @app.route('/goal', methods=['GET'])
 def goal_get():
     return render_template("goal.html")
 
+# goal_textの内容を受け取ってgoal.htmlに渡す
 @app.route('/goal', methods=['POST'])
 def goal_post():
     goal_text = request.form['goal_text']
