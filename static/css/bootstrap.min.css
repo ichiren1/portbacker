@@ -19,7 +19,7 @@ body{
 
 #move_tab{
 	position:relative;
-	float: right;
+	/*float: right;*/
 	margin-top: -30px;
 	/*margin-left: auto;*/
 
