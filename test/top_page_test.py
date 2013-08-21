@@ -16,9 +16,9 @@ class TopPageTest(unittest.TestCase):
 
     def test_top_page_inclues_links_to_pages(self):
         rv = self.app.get('/')
-        self.assertTrue(u'<h1>TOPページ</h1>' in rv.data)
-        self.assertTrue(u'href = "portfolio"' in rv.data)
-        self.assertTrue(u'href = "goal"' in rv.data)
+        self.assertTrue(u'ここはトップページです' in rv.data)
+        self.assertTrue(u'href="portfolio"' in rv.data)
+        self.assertTrue(u'href="goal"' in rv.data)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
