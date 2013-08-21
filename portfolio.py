@@ -173,7 +173,7 @@ def new_post():
     i = nonexist_i
     with open(os.path.join(UPLOAD_FOLDER, "portfolio%d.html" % i), "wb") as f:
         f.write(request.form["textarea"])
-    return render_template("portfolio.html")
+    return portfolio()
 
 
 @app.route('/preview', methods=['POST'])
