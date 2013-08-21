@@ -5,6 +5,9 @@
 ### Python
 * version 2.7
 
+### Flask
+* version 0.10.1
+
 ### MongoDB
 * version 2.4.3
 * 参照→ http://nigohiroki.hatenablog.com/entry/2013/01/05/234631
