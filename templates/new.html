@@ -142,22 +142,27 @@
           <img src="/view_file/{{imgname}}">
         {% endfor %}
         <br>  
-        <input type="submit" name="button" value="保存" class="btn btn-primary" style="width:80px; height:30px">
+        <input type="submit" name="button" value="保存" class="btn btn-primary" style="width:80px; height:30px" onClick="sendSave()">
         <!--
         下書きのボタンはどこかにリンクするんですかね
         するとしたら、保存してからポートフォリオ一覧に戻るとかかなぁ
         -->
-        <input type="submit" name="button" value="プレビュー" class="btn btn-secondry" style="width:80px; height:30px" onClick="send()">
+        <input type="submit" name="button" value="プレビュー" class="btn btn-secondry" style="width:80px; height:30px" onClick="sendPreview()">
         <a href="portfolio"><input type="button" value="キャンセル" class="btn btn-secondry"	style="width:80px; height:30px">
         </form>
     </div>
   </div>
 
 <script language="JavaScript"><!--
-function send()
+function sendPreview()
 {
   document.getElementById('form').target = '_blank';
   document.getElementById('form').action = 'preview';
+}
+function sendSave()
+{
+  document.getElementById('form').target = '';
+  document.getElementById('form').action = 'new';
 }
 // --></script>
 <script src="../static/js/parser_rules/advanced.js"></script>
