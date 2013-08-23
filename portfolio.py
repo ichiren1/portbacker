@@ -173,8 +173,8 @@ def new_post():
     i = nonexist_i
     with open(os.path.join(UPLOAD_FOLDER, "portfolio%d.html" % i), "wb") as f:
         text = request.form["textarea"].encode('utf-8')
-        f.write()
-    return portfolio(text)
+        f.write(text)
+    return portfolio()
 
 @app.route('/preview', methods=['POST'])
 def preview():
