@@ -144,7 +144,7 @@ def artifact():
             else:
                 sys.stderr.write("log> upload failed (unallowed name): %s\n" % repr(file.filename))
         elif makedir:
-            os.mkdir(os.path.join(UPLOAD_FOLDER, dirpath, makedir))
+            os.mkdir(os.path.join(UPLOAD_FOLDER, makedir))
 
     filelist2, dirlist = list_files_and_dirs(UPLOAD_FOLDER)
     return render_template("artifact.html",ls=filelist2,dir=dirlist,dirpath="")
