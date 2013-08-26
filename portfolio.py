@@ -83,17 +83,27 @@ def get_date(filename):
     dt = datetime.datetime.fromtimestamp(last_modified)
     return dt.strftime("%Y/%m/%d")
 
+def unquote(s):
+    if isinstance(s, unicode):
+        s = s.encode('utf-8')
+    return urllib.unquote(s).decode('utf-8')
+
+def quote(s):
+    if isinstance(s, unicode):
+        s = s.encode('utf-8')
+    return urllib.quote(s)
+
 def list_files_and_dirs(dirpath):
     filelist = os.listdir(dirpath)
     dirlist = []  # list of (display, url)
     filelist2 = []  # list of (display, url)
     def to_display_and_url(name):
-        return (name, urllib.quote(name.encode('utf-8')))
+        return (name, quote('utf-8'))
     for name in filelist:
         if os.path.isdir(os.path.join(dirpath, name)):
-            dirlist.append(to_display_and_url(name))
+            dirlist.append((name, quote(name)))
         else:
-            filelist2.append(to_display_and_url(name))
+            filelist2.append((name, quote(name)))
     return filelist2, dirlist
 
 def check_filename(filename):
@@ -109,7 +119,7 @@ def check_filename(filename):
 @app.route('/artifact/<path:dirpath>', methods=['GET', 'POST'])
 def artifact_dir(dirpath):
     if request.method == 'POST':
-        makedir = urllib.unquote(request.form['directoryname']).decode('utf-8')
+        makedir = unquote(request.form['directoryname'])
         file = request.files['file']
         if file:
             if allowed_file(file.filename) and check_filename(file.filename):
@@ -121,12 +131,12 @@ def artifact_dir(dirpath):
 
     filelist2, dirlist = list_files_and_dirs(os.path.join(UPLOAD_FOLDER, dirpath))
     return render_template("artifact.html",ls=filelist2,dir=dirlist,
-            dirpath=urllib.quote(dirpath.encode('utf-8')) + "/")
+            dirpath=quote(dirpath) + "/")
 
 @app.route('/artifact', methods=['GET', 'POST'])
 def artifact():
     if request.method == 'POST':
-        makedir = urllib.unquote(request.form['directoryname']).decode('utf-8')
+        makedir = unquote(request.form['directoryname'])
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename).decode('utf-8')
