@@ -138,11 +138,13 @@ def artifact():
     if request.method == 'POST':
         makedir = unquote(request.form['directoryname'])
         file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename).decode('utf-8')
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        if file:
+            if allowed_file(file.filename) and check_filename(file.filename):
+                file.save(os.path.join(UPLOAD_FOLDER, file.filename))
+            else:
+                sys.stderr.write("log> upload failed (unallowed name): %s\n" % repr(file.filename))
         elif makedir:
-            os.mkdir(os.path.join(UPLOAD_FOLDER, makedir))
+            os.mkdir(os.path.join(UPLOAD_FOLDER, dirpath, makedir))
 
     filelist2, dirlist = list_files_and_dirs(UPLOAD_FOLDER)
     return render_template("artifact.html",ls=filelist2,dir=dirlist,dirpath="")
