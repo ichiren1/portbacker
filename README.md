@@ -45,6 +45,6 @@ collection名 portfolios
 collection名 goals
 
 ```javascript
-{"owner": "string", "goal": "string"}
+{"username": "string", "goal_text": "string"}
 ```
 
