@@ -84,69 +84,67 @@
         </div>
       </div>
     </div>
+
     <div class="box">
-        ポートフォリオ作成<br>
-        <form id='form' name='form' method="post" action="new" target="">
-          <div id="toolbar" style="display: none;">
-            <a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |
-            <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
-            <a data-wysihtml5-command="createLink">insert link</a> |
-            <a data-wysihtml5-command="insertImage">insert image</a> |
-            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> |
-            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> |
-            <a data-wysihtml5-command="insertUnorderedList">箇条書き</a> |
-            <a data-wysihtml5-command="insertOrderedList">連番</a> |
-            <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> |
-            <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> |
-            <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> |
-            <a data-wysihtml5-command="insertSpeech">speech</a>  ||
-            <a data-wysihtml5-action="change_view">switch to html view</a>
-            
-            <div data-wysihtml5-dialog="createLink" style="display: none;">
-              <label>
-                Link:
-                <input data-wysihtml5-dialog-field="href" value="http://">
-              </label>
-              <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-            </div>
-            
-            <div data-wysihtml5-dialog="insertImage" style="display: none;">
-              <label>
-                Image:
-                <input data-wysihtml5-dialog-field="src" value="http://">
-              </label>
-              <label>
-                Align:
-                <select data-wysihtml5-dialog-field="className">
-                  <option value="">default</option>
-                  <option value="wysiwyg-float-left">left</option>
-                  <option value="wysiwyg-float-right">right</option>
-                </select>
-              </label>
-              <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-            </div>
-            
+      ポートフォリオ作成<br>
+      <form id='form' name='form' method="post" action="new" target="">
+        <div id="toolbar" style="display: none;">
+          <a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |
+          <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
+          <a data-wysihtml5-command="createLink">insert link</a> |
+          <a data-wysihtml5-command="insertImage">insert image</a> |
+          <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> |
+          <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> |
+          <a data-wysihtml5-command="insertUnorderedList">箇条書き</a> |
+          <a data-wysihtml5-command="insertOrderedList">連番</a> |
+          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> |
+          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> |
+          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> |
+          <a data-wysihtml5-command="insertSpeech">speech</a>  ||
+          <a data-wysihtml5-action="change_view">switch to html view</a>
+          
+          <div data-wysihtml5-dialog="createLink" style="display: none;">
+            <label>
+              Link:
+              <input data-wysihtml5-dialog-field="href" value="http://">
+            </label>
+            <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
           </div>
-          <textarea id="textarea" name="textarea"></textarea>
-          <small>powered by <a href="https://github.com/xing/wysihtml5" target="_blank">wysihtml5</a>.</small>
+          
+          <div data-wysihtml5-dialog="insertImage" style="display: none;">
+            <label>
+              Image:
+              <input data-wysihtml5-dialog-field="src" value="http://">
+            </label>
+            <label>
+              Align:
+              <select data-wysihtml5-dialog-field="className">
+                <option value="">default</option>
+                <option value="wysiwyg-float-left">left</option>
+                <option value="wysiwyg-float-right">right</option>
+              </select>
+            </label>
+            <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+          </div>
+        </div>
+
+        <textarea id="textarea" name="textarea"></textarea>
+        <small>powered by <a href="https://github.com/xing/wysihtml5" target="_blank">wysihtml5</a>.</small>
         
-      <div class="portfolio_kanri">
-        {% for imgname in imglist %}
-          <img src="/view_file/{{imgname}}" class="seikaimg">
-        {% endfor %}
-        {% for art_name in artifact_list %}
-          <p><a href="/view_file/{{art_name}}" target = '_blank'>{{art_name}}</a></p>
-        {% endfor %}
-      </div>
-        <br>  
+        <br>
         <input type="submit" name="button" value="保存" class="btn btn-primary" style="width:80px; height:30px" onClick="sendSave()">
-        <!--
-        下書きのボタンはどこかにリンクするんですかね
-        するとしたら、保存してからポートフォリオ一覧に戻るとかかなぁ
-        -->
         <input type="submit" name="button" value="プレビュー" class="btn btn-secondry" style="width:80px; height:30px" onClick="sendPreview()">
-        <a href="portfolio"><input type="button" value="キャンセル" class="btn btn-secondry"	style="width:80px; height:30px">
-        </form>
+        <a href="portfolio"><input type="button" value="キャンセル" class="btn btn-secondry" style="width:80px; height:30px"></a>
+
+        <div class="portfolio_kanri">
+          {% for imgname in imglist %}
+            <img src="/view_file/{{imgname}}" class="seikaimg">
+          {% endfor %}
+          {% for art_name in artifact_list %}
+            <p><a href="/view_file/{{art_name}}" target = '_blank'>{{art_name}}</a></p>
+          {% endfor %}
+        </div>
+      </form>
     </div>
   </div>
 
