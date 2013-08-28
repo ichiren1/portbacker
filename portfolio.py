@@ -35,12 +35,6 @@ def befor_request():
         return
     return redirect('/login')
 
-@app.route('/')
-def index():
-    if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
