@@ -40,13 +40,22 @@ def befor_request():
         return
     return redirect('/login')
 
+def is_exist_directory(dirname):
+    filelist2, dirlist = list_files_and_dirs(UPLOAD_FOLDER)
+    dirlist2 = []
+    for i in range(len(dirlist)):
+        dirlist2.append(dirlist[i][1])
+    return dirname in dirlist2
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if session.get('username') is not None:
         return redirect('/')
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        os.mkdir(get_sessionuser_directory_path("", ""))
+        username = request.form['username']
+        session['username'] = username
+        if(not is_exist_directory(username)):
+            os.mkdir(get_sessionuser_directory_path("", ""))
         return redirect('/')
     return render_template('login.html')
 
