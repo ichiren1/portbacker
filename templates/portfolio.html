@@ -19,7 +19,7 @@
         {% for date, portlist in zipped %}
         <h4>
           <p>{{date}}</p>
-        <h4>
+        </h4>
         <h4>
           {% for portfolio in portlist %}
             <p><a href={{"/view_file/"+portfolio}}>{{portfolio}}</a></p>
@@ -27,7 +27,6 @@
         </h4>
         <hr>
         {% endfor %}
-        </hr>
     </div>
 </div>
 {% endblock %}
