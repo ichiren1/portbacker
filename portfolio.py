@@ -4,7 +4,7 @@ import urllib
 import sys, os, datetime, itertools
 from flask import Flask, session, request, redirect, url_for, render_template , send_from_directory, escape
 from pymongo import Connection
-from werkzeug import secure_filename
+#gfrom werkzeug import secure_filename
 
 UPLOAD_FOLDER = u'./data'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -119,6 +119,13 @@ def goal_get():
     docs = col.find({"username": username})
     return render_template_with_username("goal.html", docs=docs)
 
+def get_text_by_user_table_coumn(username, table, column):
+    col = db[table]
+    docs = col.find({"username": username})
+    texts = [doc.get(column) for doc in docs]
+    texts = list(filter(None, texts))
+    return texts
+
 # goal_textの内容を受け取ってgoal.htmlに渡す 菅野：テキストは渡さないでgoal.htmlからdbにアクセスできるようにしました
 @app.route('/goal', methods=['POST'])
 def goal_post():
@@ -131,8 +138,26 @@ def goal_post():
     elif request.form["button"] == u"削除":
         rmgoal = request.form['rmgoal']
         col.remove({"username": username, "goal_text": rmgoal})
-    docs = col.find({"username": username})
-    return render_template_with_username("goal.html", docs=docs)
+    goal_texts = get_text_by_user_table_coumn(username, "goals", "goal_text")
+    log_texts = get_text_by_user_table_coumn(username, "personallogs", "goal_text")
+    return render_template_with_username("goal.html", 
+            goal_texts=goal_texts, log_texts=log_texts)
+
+@app.route('/personallog_post', methods=['POST'])
+def personallog_post():
+    username = session['username']
+    collogs = db.personallogs
+    if request.form["button"] == u"追加":
+        personallog_text = request.form['personallog_text']
+        if personallog_text != "":
+            collogs.insert({"username": username, "personallog_text": personallog_text})
+    elif request.form["button"] == u"削除":
+        rmgoal = request.form['rmgoal']
+        collogs.remove({"username": username, "personallog_text": rmgoal})
+    goal_texts = get_text_by_user_table_coumn(username, "goals", "goal_text")
+    log_texts = get_text_by_user_table_coumn(username, "personallogs", "personallog_text")
+    return render_template_with_username("goal.html", 
+            goal_texts=goal_texts, log_texts=log_texts)
 
 @app.route('/portfolio', methods=['GET'])
 def portfolio():
