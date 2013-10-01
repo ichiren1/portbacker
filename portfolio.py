@@ -114,7 +114,6 @@ def goal_get():
     docs = col.find({"username": username})
     return render_template_with_username("goal.html", docs=docs)
 
-<<<<<<< HEAD
 def get_text_by_user_table_coumn(username, table, column):
     col = db[table]
     docs = col.find({"username": username})
@@ -123,8 +122,6 @@ def get_text_by_user_table_coumn(username, table, column):
     return texts
 
 # goal_textの内容を受け取ってgoal.htmlに渡す 菅野：テキストは渡さないでgoal.htmlからdbにアクセスできるようにしました
-=======
->>>>>>> 20f60cc37583afdde04a848f6cdacf6cde00a6f4
 @app.route('/goal', methods=['POST'])
 def goal_post():
     username = session['username']
