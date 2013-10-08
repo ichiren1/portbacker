@@ -21,7 +21,7 @@
 	width: 960px;
 	height: 640px;
 	/*そのばしのぎです*/
-	margin-top: -5zpx;
+	margin-top: -5px;
 	
 }
 
@@ -61,7 +61,6 @@ textarea{
 	width: 400px;
 	height:400px;
 	/*サイズを変更できないようにする*/
-	resize:none;
 }
 
 /*ポートフォリオページの日付ごと制作物の境界線*/
@@ -71,10 +70,10 @@ hr{
 }
 
 .portfolio_kanri{
-	width: 30%;
-	margin-top: -88%;
+	/*その場しのぎ*/
+	margin-top: -450px;
 	margin-left: 60%;
-	margin-bottom: 1%;
+	width: 30%;
 }
 
 small{
