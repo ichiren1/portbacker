@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+/*----- reset --------------------------------------------------------*/
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
+fieldset, input, button, textarea, select, p, blockquote, tr, th, td,label,option {
+    margin:0;
+    padding:0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size:12px;
+    font-weight:normal;}
+
+ol, ul {list-style:none;}
+
+img {border:0;}
+
+table {
+    border-collapse:0;
+    border-spacing:0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style:normal;
+    font-weight:normal;
+}
+
+form, text, textarea {
+	outline:none;
+}
+
+em,b {
+	font-style:normal;
+}
+
+
+
+/* ------ font ------- */
+
+
+html {
+	width:100%;
+}
+
+body {
+    width:100%;
+	height:100%;
+	font-family:Arial, Helvetica,'MS 明朝',sans-serif;
+	line-height:1.5;
+	font-size:12px;
+}
