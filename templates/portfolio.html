@@ -1,70 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<script type="text/javascript">
-$(function(){
-  var Top = document.getElementById('Top');
-   Top.style.backgroundColor = "#888";
-  var Portfolio = document.getElementById('Portfolio');
-    Portfolio.style.backgroundColor = "#dcdcdc";
-  var Artifact = document.getElementById('Artifact');
-    Artifact.style.backgroundColor = "#888";
-  var Goal = document.getElementById('Goal');
-    Goal.style.backgroundColor = "#888";
-
-/*タブの移動*/
-$("#move_tab").css("float", "right");
-
-/*タブの文字の色*/
-$("#topcolor").css("color", "#666");
-$("#portcolor").css("color", "#fff");
-$("#artcolor").css("color", "#666");
-$("#goalcolor").css("color", "#666");
-
-/*mouseover*/
-  /*トップ*/
-  $("li#Top").mouseover(function(){
-    $("#Top").css("backgroundColor","#dcdcdc");
-    $("#topcolor").css("color", "#fff");
-  });
-  $("li#Top").mouseout(function(){
-    $("#Top").css("backgroundColor","#888");
-    $("#topcolor").css("color", "#666");
-  });
-
-  /*成果物管理*/
-  $("li#Artifact").mouseover(function(){
-    $("#Artifact").css("backgroundColor","#dcdcdc");
-    $("#artcolor").css("color", "#fff");
-  });
-  $("li#Artifact").mouseout(function(){
-    $("#Artifact").css("backgroundColor","#888");
-    $("#artcolor").css("color", "#666");
-  });
-
-  /*ゴール*/
-  $("li#Goal").mouseover(function(){
-    $("#Goal").css("backgroundColor","#dcdcdc");
-    $("#goalcolor").css("color", "#fff");
-  });
-  $("li#Goal").mouseout(function(){
-    $("#Goal").css("backgroundColor","#888");
-    $("#goalcolor").css("color", "#666");
-  });
-
-
-  /*border- riadius*/
-  $("#Top").css("border-radius","5px 5px 0px 0px");
-  $("#Portfolio").css("border-radius","5px 5px 0px 0px");
-  $("#Artifact").css("border-radius","5px 5px 0px 0px");
-  $("#Goal").css("border-radius","5px 5px 0px 0px");
- 
-  /*padding*/
-  $("#Top").css("padding","5px");
-  $("#Portfolio").css("padding","5px");
-  $("#Artifact").css("padding","5px");
-  $("#Goal").css("padding","5px");
-});
-</script>
   <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <div Class="style">
     <div id="tabnavi">
@@ -80,6 +15,7 @@ $("#goalcolor").css("color", "#666");
       </div>
     </div>
     <div class="box">
+      <h3>ポートフォリオ作成</h3>
       <a href="new"><input type="button" value="新規" class="btn btn-primary" ></a><br><br>
         {% for date, portlist in zipped %}
         <h4>
