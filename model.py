@@ -2,6 +2,46 @@
 
 from pymongo import Connection
 
+class User(object):
+    def __init__(self, display_name, student_id, group_id, course, grade):
+        self.display_name = display_name
+        self.student_id = student_id
+        self.group_id = group_id
+        self.course = course
+        self.grade = grade
+
+    def insert(self, db):
+        col = db.portpolio_users
+        col.insert({
+            "display_name": self.display_name,
+            "student_id":self.student_id,
+            "group_id":self.group_id,
+            "course":self.course,
+            "grade":self.grade})
+
+    @classmethod
+    def find(clz, db, student_id):
+        col = db.portpolio_users
+        docs = col.find({"student_id": student_id})
+        docs = list(docs)
+        if len(docs) == 0:
+            return None
+        doc = docs[0]
+        return User(doc["display_name"], doc["student_id"], doc["group_id"], doc["course"], doc["grade"])
+
+    @classmethod
+    def find_user_ids(clz, db):
+        col = db.portpolio_users
+        docs = col.find()
+        store = []
+        for doc in docs:
+            store.append(doc["student_id"])
+        return store
+
+    @classmethod
+    def delete_all(clz, db):
+        db.portpolio_users.drop()
+
 db = Connection('localhost', 27017).portbacker
 
 COL_GOALS = "goals"
