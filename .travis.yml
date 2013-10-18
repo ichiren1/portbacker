@@ -11,5 +11,7 @@ install:
   - pip install pymongo --use-mirrors
 
 script:
-  - python test/top_page_test.py
+  - python test/test_top_page.py
+  - python test/test_artifact_page.py
+  - python test/test_model.py
 
