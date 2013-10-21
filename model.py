@@ -18,7 +18,7 @@ class Group(object):
 		col = db.portfolio_groups
 		docs = col.find({"group_id": group_id})
 		docs = list(docs)
-		if len(docs) == 0;
+		if len(docs) == 0:
 			return None
 		doc = docs[0]
 		return Group(doc["name"], doc["gruop_id"])
