@@ -13,7 +13,8 @@ $(function(){
 
 
 /*タブの移動*/
-$("#move_tab").css("float", "right");
+/*その場しのぎしてます*/
+$("#move_tab").css("margin-left", "235px");
 
 /*タブの文字の色*/
 $("#topcolor").css("color", "#666");
@@ -79,6 +80,15 @@ $("#goalcolor").css("color", "#fff");
           </ul>
         </div>
       </div>
+    </div>
+    <div class="prof">
+      <div id="usrname">
+        {{username}}
+        <input type="button" onclick="location.href='/logout'" value="設定" class="btn btn-secondly">
+        <div id="logoutbtn">
+          <input type="button" onclick="location.href='/logout'" value="ログアウト" class="btn btn-secondly">
+        </div>
+      </div>   
     </div>
     <div class="box">
       <div id="top">■更新情報</div>

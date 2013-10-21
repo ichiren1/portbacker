@@ -18,11 +18,28 @@
 /*背景の色*/
 .box{
 	background-color: #dcdcdc;
-	width: 960px;
+	width: 700px;
 	height: 640px;
 	/*そのばしのぎです*/
-	margin-top: -5px;
-	
+	margin-top: -115px;
+	float: right;	
+}
+
+.prof{
+	background-color: #dcdcdc;
+	width: 250px;
+	height: 100px;
+}
+
+.prof #usrname{
+	font-weight: bold;
+	margin-left: 15px;
+	line-height: 110px;
+}
+
+/*ログアウトボタンの位置なんとか変更したい*/
+.prof #logoutbtn{
+	float: right;
 }
 
 /*使用するフォントの設定*/
@@ -81,11 +98,11 @@ small{
 }
 
 /*画面の上にあるUserNameの位置の設定*/
-#username{
+/*#username{
 	margin-top: -70px;
 	float: right;
 }
-
+*/
 /*top.htmlでつかってるよ*/
 #top{
 	padding: 20px 0 0 20px;
@@ -105,4 +122,9 @@ small{
 	width: 400px;
 	height: 150px;
 	border: 1px dotted #ccc;
+}
+
+#prebtn{
+	margin-top: -20px;
+	margin-left: 315px;
 }

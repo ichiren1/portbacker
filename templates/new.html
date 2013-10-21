@@ -3,38 +3,40 @@
 <script type="text/javascript">
 $(function(){
   var Top = document.getElementById('Top');
-   Top.style.backgroundColor = "#888";
+   Top.style.backgroundColor = "#dcdcdc";
   var Portfolio = document.getElementById('Portfolio');
-    Portfolio.style.backgroundColor = "#dcdcdc";
+    Portfolio.style.backgroundColor = "#888";
   var Artifact = document.getElementById('Artifact');
     Artifact.style.backgroundColor = "#888";
   var Goal = document.getElementById('Goal');
     Goal.style.backgroundColor = "#888";
 
+
 /*タブの移動*/
-$("#move_tab").css("float", "right");
+/*その場しのぎしてます*/
+$("#move_tab").css("margin-left", "235px");
 
 /*タブの文字の色*/
-$("#topcolor").css("color", "#fff");
-$("#portcolor").css("color", "#666");
+$("#topcolor").css("color", "#666");
+$("#portcolor").css("color", "#fff");
 $("#artcolor").css("color", "#fff");
 $("#goalcolor").css("color", "#fff");
 
 /*mouseover*/
-  /*トップ*/
-  $("li#Top").mouseover(function(){
-    $("#Top").css("backgroundColor","#dcdcdc");
-    $("#topcolor").css("color", "#fff");
+  /*ポートフォリオ*/
+  $("li#Portfolio").mouseover(function(){
+    $("#Portfolio").css("backgroundColor","#dcdcdc");
+    $("#portcolor").css("color", "#666");
   });
-  $("li#Top").mouseout(function(){
-    $("#Top").css("backgroundColor","#888");
-    $("#topcolor").css("color", "#fff");
+  $("li#Portfolio").mouseout(function(){
+    $("#Portfolio").css("backgroundColor","#888");
+    $("#portcolor").css("color", "#fff");
   });
 
   /*成果物管理*/
   $("li#Artifact").mouseover(function(){
     $("#Artifact").css("backgroundColor","#dcdcdc");
-    $("#artcolor").css("color", "#fff");
+    $("#artcolor").css("color", "#666");
   });
   $("li#Artifact").mouseout(function(){
     $("#Artifact").css("backgroundColor","#888");
@@ -44,13 +46,12 @@ $("#goalcolor").css("color", "#fff");
   /*ゴール*/
   $("li#Goal").mouseover(function(){
     $("#Goal").css("backgroundColor","#dcdcdc");
-    $("#goalcolor").css("color", "#fff");
+    $("#goalcolor").css("color", "#666");
   });
   $("li#Goal").mouseout(function(){
     $("#Goal").css("backgroundColor","#888");
     $("#goalcolor").css("color", "#fff");
   });
-
 
   /*border- riadius*/
   $("#Top").css("border-radius","5px 5px 0px 0px");
@@ -123,7 +124,7 @@ $("#goalcolor").css("color", "#fff");
       border: 1px solid #666;
     }
     
-    a[data-wysihtml5-command-value="red"] {
+    /*a[data-wysihtml5-command-value="red"] {
       color: red;
     }
     
@@ -133,7 +134,7 @@ $("#goalcolor").css("color", "#fff");
     
     a[data-wysihtml5-command-value="blue"] {
       color: blue;
-    }
+    }*/
   </style>
   <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <div Class="style">
@@ -141,31 +142,39 @@ $("#goalcolor").css("color", "#fff");
       <div Class="size">
         <div id="move_tab">
           <ul>
-            <li Class="top" id="Top"><a id="topcolor" href="/">&nbsp;&nbsp;&nbsp;トップ&nbsp;&nbsp;&nbsp;</a></li>
-            <li Class="chg_portfolio" id="Portfolio"><a id="portcolor" href="portfolio">ポートフォリオ</a></li>
-            <li Class="artifact" id="Artifact"><a id="artcolor" href="artifact">成果物管理</a></li>
-            <li Class="goal" id="Goal"><a id="goalcolor" href="goal">ゴール設定</a></li>
+            <li id="Top"><a id="topcolor" href="/">&nbsp;&nbsp;&nbsp;トップ&nbsp;&nbsp;&nbsp;</a></li>
+            <li id="Portfolio"><a id="portcolor" href="portfolio">ポートフォリオ</a></li>
+            <li id="Artifact"><a id="artcolor" href="artifact">成果物管理</a></li>
+           <li id="Goal"><a id="goalcolor" href="goal">ゴール設定</a></li>
           </ul>
         </div>
       </div>
     </div>
-
+    <div class="prof">
+      <div id="usrname">
+        {{username}}
+        <input type="button" onclick="location.href='/logout'" value="設定" class="btn btn-secondly">
+        <div id="logoutbtn">
+          <input type="button" onclick="location.href='/logout'" value="ログアウト" class="btn btn-secondly">
+        </div>
+      </div>   
+    </div>
     <div class="box">
       <h3>ポートフォリオ作成</h3><br>
       <form id='form' name='form' method="post" action="new" target="">
         <div id="toolbar" style="display: none;">
           <a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |
           <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
-          <a data-wysihtml5-command="createLink">insert link</a> |
-          <a data-wysihtml5-command="insertImage">insert image</a> |
+          <!-- <a data-wysihtml5-command="createLink">insert link</a> | -->
+          <!-- <a data-wysihtml5-command="insertImage">insert image</a> | -->
           <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> |
           <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> |
-          <a data-wysihtml5-command="insertUnorderedList">箇条書き</a> |
-          <a data-wysihtml5-command="insertOrderedList">連番</a> |
-          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> |
-          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> |
-          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> |
-          <a data-wysihtml5-command="insertSpeech">speech</a>  ||
+          <a data-wysihtml5-command="insertUnorderedList">箇条書き</a>
+          <!-- <a data-wysihtml5-command="insertOrderedList">連番</a> | -->
+          <!-- <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> | -->
+          <!-- <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> | -->
+          <!-- <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> | -->
+          <!-- <a data-wysihtml5-command="insertSpeech">speech</a>-->  ||
           <a data-wysihtml5-action="change_view">switch to html view</a>
           
           <div data-wysihtml5-dialog="createLink" style="display: none;">
@@ -195,11 +204,15 @@ $("#goalcolor").css("color", "#fff");
 
         <textarea id="textarea" name="textarea"></textarea>
         <small>powered by <a href="https://github.com/xing/wysihtml5" target="_blank">wysihtml5</a>.</small>
-        
+        <div id="prebtn"><input type="submit" name="button" value="プレビュー" class="btn btn-secondry" style="width:100px; height:30px" onClick="sendPreview()"></div>
+
+        公開範囲<br>
+        <input type="radio" name="q1" value="open"> 公開<br>
+        <input type="radio" name="q1" value="closed"> 非公開(下書きとして保存されます)<br>
+       
         <br>
         <input type="submit" name="button" value="保存" class="btn btn-primary" style="width:100px; height:30px" onClick="sendSave()">
-        <input type="submit" name="button" value="プレビュー" class="btn btn-secondry" style="width:100px; height:30px" onClick="sendPreview()">
-        <a href="portfolio"><input type="button" value="キャンセル" class="btn btn-secondry" style="width:100px; height:30px"></a>
+        <!-- <a href="portfolio"><input type="button" value="キャンセル" class="btn btn-secondry" style="width:100px; height:30px"></a> -->
 
         <div class="portfolio_kanri">
           {% for imgname in imglist %}
