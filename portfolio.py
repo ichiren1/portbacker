@@ -263,4 +263,7 @@ if __name__ == '__main__':
     app.debug = True
     app.run()
 
-#profile.htmlにつなぐ
+@app.route('/prpfile', methods=['GET'])
+def profile():
+	return render_template_with_username("profile.html") 
+	
