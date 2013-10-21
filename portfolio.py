@@ -3,8 +3,8 @@
 import urllib
 import sys, os, datetime, itertools
 from flask import Flask, session, request, redirect, url_for, render_template , send_from_directory, escape
-from pymongo import Connection
 #gfrom werkzeug import secure_filename
+import model
 
 UPLOAD_FOLDER = u'./data'
 DOCUMENT_EXTENSIONS = frozenset(['txt', 'pdf', 'md'])
@@ -16,8 +16,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-
-db = Connection('localhost', 27017).portbacker
 
 def render_template_with_username(url,**keywordargs):
     username = session.get('username')
@@ -110,49 +108,38 @@ def index_page():
 @app.route('/goal', methods=['GET'])
 def goal_get():
     username = session['username']
-    goals_col = db.goals
-    logs_col = db.personallogs
-    goal_texts = get_text_by_user_table_coumn(username, "goals", "goal_text")
-    log_texts = get_text_by_user_table_coumn(username, "personallogs", "personallog_text")
+    goal_texts = model.get_goal_texts(username)
+    log_texts = model.get_log_texts(username)
     return render_template_with_username("goal.html", goal_texts= goal_texts, log_texts=log_texts)
-
-def get_text_by_user_table_coumn(username, table, column):
-    col = db[table]
-    docs = col.find({"username": username})
-    texts = [doc.get(column) for doc in docs]
-    texts = list(filter(None, texts))
-    return texts
 
 # goal_textの内容を受け取ってgoal.htmlに渡す 菅野：テキストは渡さないでgoal.htmlからdbにアクセスできるようにしました
 @app.route('/goal', methods=['POST'])
 def goal_post():
     username = session['username']
-    col = db.goals
     if request.form["button"] == u"新規作成":
         goal_text = request.form['goal_text']
         if goal_text != "":
-            col.insert({"username": username, "goal_text": goal_text})
+            model.insert_goal_text(username, goal_text)
     elif request.form["button"] == u"削除":
         rmgoal = request.form['rmgoal']
-        col.remove({"username": username, "goal_text": rmgoal})
-    goal_texts = get_text_by_user_table_coumn(username, "goals", "goal_text")
-    log_texts = get_text_by_user_table_coumn(username, "personallogs", "personallog_text")
+        model.remove_goal_text(username, rmgoal)
+    goal_texts = model.get_goal_texts(username)
+    log_texts = model.get_log_texts(username)
     return render_template_with_username("goal.html", 
             goal_texts=goal_texts, log_texts=log_texts)
 
 @app.route('/personallog_post', methods=['POST'])
 def personallog_post():
     username = session['username']
-    collogs = db.personallogs
     if request.form["button"] == u"追加":
         personallog_text = request.form['personallog_text']
         if personallog_text != "":
-            collogs.insert({"username": username, "personallog_text": personallog_text})
+            model.insert_log_text(username, personallog_text)
     elif request.form["button"] == u"削除":
-        rmgoal = request.form['rmgoal']
-        collogs.remove({"username": username, "personallog_text": rmgoal})
-    goal_texts = get_text_by_user_table_coumn(username, "goals", "goal_text")
-    log_texts = get_text_by_user_table_coumn(username, "personallogs", "personallog_text")
+        rmlog = request.form['rmgoal']
+        model.remove_log_text(username, rmlog)
+    goal_texts = model.get_goal_texts(username)
+    log_texts = model.get_log_texts(username)
     return render_template_with_username("goal.html", 
             goal_texts=goal_texts, log_texts=log_texts)
 
