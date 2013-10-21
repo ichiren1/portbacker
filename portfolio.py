@@ -255,12 +255,15 @@ def new_post():
 def preview():
     return request.form['textarea']
 
+@app.route('/profile', methods=['GET'])
+def profile():
+    return render_template_with_username("profile.html")
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template_with_username("page_not_found.html"), 404
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
-
-#profile.htmlにつなぐ
+    app.run() 
+	
