@@ -18,7 +18,7 @@
 /*背景の色*/
 .box{
 	background-color: #dcdcdc;
-	width: 820px;
+	width: 940px;
 	height: 640px;
 	margin-top: -140px;
 	/*そのばしのぎです*/
@@ -57,7 +57,7 @@
 /*余白の設定*/
 body{
 	font-family: "Meiryo";
-	width: 1080px;
+	width: 1200px;
 	height: 640px;
 	margin: 0 auto;
 }
