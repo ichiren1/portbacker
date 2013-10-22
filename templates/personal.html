@@ -5,11 +5,11 @@ $(function(){
   var Top = document.getElementById('Top');
    Top.style.backgroundColor = "#888";
   var Portfolio = document.getElementById('Portfolio');
-    Portfolio.style.backgroundColor = "#dcdcdc";
+    Portfolio.style.backgroundColor = "#888";
   var Artifact = document.getElementById('Artifact');
     Artifact.style.backgroundColor = "#888";
   var Personal = document.getElementById('Personal');
-    Personal.style.backgroundColor = "#888";
+    Personal.style.backgroundColor = "#dcdcdc";
   var Goal = document.getElementById('Goal');
     Goal.style.backgroundColor = "#888";
 
@@ -21,13 +21,14 @@ $("#move_tab").css("margin-top", "-125px");
 
 /*タブの文字の色*/
 $("#topcolor").css("color", "#fff");
-$("#portcolor").css("color", "#666");
+$("#portcolor").css("color", "#fff");
 $("#artcolor").css("color", "#fff");
-$("#perscolor").css("color", "#fff");
+$("#perscolor").css("color", "#666");
 $("#goalcolor").css("color", "#fff");
 
+
 /*mouseover*/
-  /*ポートフォリオ*/
+  /*トップ*/
   $("li#Top").mouseover(function(){
     $("#Top").css("backgroundColor","#dcdcdc");
     $("#topcolor").css("color", "#666");
@@ -37,16 +38,16 @@ $("#goalcolor").css("color", "#fff");
     $("#topcolor").css("color", "#fff");
   });
 
-  /*成果物管理*/
-  $("li#Artifact").mouseover(function(){
-    $("#Artifact").css("backgroundColor","#dcdcdc");
-    $("#artcolor").css("color", "#666");
+  /*ポートフォリオ*/
+  $("li#Portfolio").mouseover(function(){
+    $("#Portfolio").css("backgroundColor","#dcdcdc");
+    $("#portcolor").css("color", "#666");
   });
-  $("li#Artifact").mouseout(function(){
-    $("#Artifact").css("backgroundColor","#888");
-    $("#artcolor").css("color", "#fff");
+  $("li#Portfolio").mouseout(function(){
+    $("#Portfolio").css("backgroundColor","#888");
+    $("#portcolor").css("color", "#fff");
   });
-
+  
   /*個人日誌*/
   $("li#Personal").mouseover(function(){
     $("#Personal").css("backgroundColor","#dcdcdc");
@@ -84,7 +85,7 @@ $("#goalcolor").css("color", "#fff");
 });
 </script>
 
-<link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <div Class="style">
     <div id="tabnavi">
       <div Class="size">
@@ -100,19 +101,22 @@ $("#goalcolor").css("color", "#fff");
       </div>
     </div>
     <div class="box">
-      <h3>ポートフォリオ</h3>
-      <a href="new"><input type="button" value="新規" class="btn btn-primary" ></a><br><br>
-        {% for date, portlist in zipped %}
-        <h4>
-          <p>{{date}}</p>
-        </h4>
-        <h4>
-          {% for portfolio in portlist %}
-            <p><a href={{"/view_file/"+portfolio}}>{{portfolio}}</a></p>
-          {% endfor %}
-        </h4>
-        <hr>
-        {% endfor %}
+      <h3>フォルダ作成</h3>
+        <form action="" method=post enctype=multipart/form-data>
+        <p><input type="text" name=directoryname>
+	      <input type=submit value=作成 class="btn btn-secondry">
+      <h3>ファイルのアップロード</h3>
+      	<p><input type="file" name=file>
+	      <input type=submit value=Upload class="btn btn-secondry">
+        </form>
+      {% for dirdisplay, dirurl in dir %}
+        <br>
+        <i class="icon-folder-close"></i><a href={{"/artifact/"+dirpath+dirurl}}>{{dirdisplay}}<a>
+	    {% endfor %}
+      {% for filedisplay, fileurl in ls %}
+        <br>
+        <i class="icon-file"></i><a href={{"/view_file/"+dirpath+fileurl}} target="_blank">{{filedisplay}}<a>
+      {% endfor %}
     </div>
-</div>
+  </div>
 {% endblock %}

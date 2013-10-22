@@ -8,6 +8,8 @@ $(function(){
     Portfolio.style.backgroundColor = "#888";
   var Artifact = document.getElementById('Artifact');
     Artifact.style.backgroundColor = "#dcdcdc";
+  var Personal = document.getElementById('Personal');
+    Personal.style.backgroundColor = "#888";
   var Goal = document.getElementById('Goal');
     Goal.style.backgroundColor = "#888";
 
@@ -21,6 +23,7 @@ $("#move_tab").css("margin-top", "-125px");
 $("#topcolor").css("color", "#fff");
 $("#portcolor").css("color", "#fff");
 $("#artcolor").css("color", "#666");
+$("#perscolor").css("color", "#fff");
 $("#goalcolor").css("color", "#fff");
 
 /*mouseover*/
@@ -43,6 +46,16 @@ $("#goalcolor").css("color", "#fff");
     $("#Portfolio").css("backgroundColor","#888");
     $("#portcolor").css("color", "#fff");
   });
+
+  /*個人日誌*/
+  $("li#Personal").mouseover(function(){
+    $("#Personal").css("backgroundColor","#dcdcdc");
+    $("#perscolor").css("color", "#666");
+  });
+  $("li#Personal").mouseout(function(){
+    $("#Personal").css("backgroundColor","#888");
+    $("#perscolor").css("color", "#fff");
+  });
   
   /*ゴール*/
   $("li#Goal").mouseover(function(){
@@ -58,12 +71,15 @@ $("#goalcolor").css("color", "#fff");
   $("#Top").css("border-radius","5px 5px 0px 0px");
   $("#Portfolio").css("border-radius","5px 5px 0px 0px");
   $("#Artifact").css("border-radius","5px 5px 0px 0px");
+  $("#Personal").css("border-radius","5px 5px 0px 0px");
   $("#Goal").css("border-radius","5px 5px 0px 0px");
  
+
   /*padding*/
   $("#Top").css("padding","5px");
   $("#Portfolio").css("padding","5px");
   $("#Artifact").css("padding","5px");
+  $("#Personal").css("padding","5px");
   $("#Goal").css("padding","5px");
 });
 </script>
@@ -76,7 +92,8 @@ $("#goalcolor").css("color", "#fff");
           <ul>
             <li id="Top"><a id="topcolor" href="/">&nbsp;&nbsp;&nbsp;トップ&nbsp;&nbsp;&nbsp;</a></li>
             <li id="Portfolio"><a id="portcolor" href="portfolio">ポートフォリオ</a></li>
-            <li id="Artifact"><a id="artcolor" href="artifact">個人日誌</a></li>
+            <li id="Artifact"><a id="artcolor" href="artifact">成果物管理</a></li>
+            <li id="Personal"><a id="perscolor" href="person">個人日誌</a></li>
            <li id="Goal"><a id="goalcolor" href="goal">ゴール設定</a></li>
           </ul>
         </div>
