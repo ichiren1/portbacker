@@ -138,3 +138,30 @@ small{
 	margin-top: -20px;
 	margin-left: 315px;
 }
+
+/*login.htmlで使ってます*/
+.loginbox{
+	background-color: #dcdcdc;
+	width: 450px;
+	height: 450px;
+	/*画面の真ん中に来るように配置してますが、margin-top設定を変える必要ありかも*/
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+#loginlogo{
+	/*ロゴのサイズによって変更予定*/
+	position: relative;
+	top: 40px;
+	left: 40px;
+}
+#login{
+	position: relative;
+	top: 150px;
+	left: 60px;
+}
+
+/*ログインボタンのデザイン。こちらのサイトから引用→http://touch-slide.jp/column/304/*/
+#loginbtn {
+	padding-left: 270px;
+}
