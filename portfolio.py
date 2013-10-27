@@ -123,10 +123,7 @@ def goal_post():
     elif request.form["button"] == u"削除":
         rmgoal = request.form['rmgoal']
         model.remove_goal_text(username, rmgoal)
-    goal_texts = model.get_goal_texts(username)
-    log_texts = model.get_log_texts(username)
-    return render_template_with_username("goal.html", 
-            goal_texts=goal_texts, log_texts=log_texts)
+    return redirect('/goal')
 
 @app.route('/personallog_post', methods=['POST'])
 def personallog_post():

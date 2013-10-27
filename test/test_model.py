@@ -82,13 +82,13 @@ class GroupTest(unittest.TestCase):
 
 	def test_insert(self):
 		db = Connection('localhost', 27017).testdata
-		model.User.delete_all(db)
+		model.Group.delete_all(db)
 		g1 = model.Group("tos_kamiya FanClub","Kamiya")
 		g1.insert(db)
 
 	def test_find(self):
 		db = Connection('localhost', 27017).testdata
-		model.User.delete_all(db)
+		model.Group.delete_all(db)
 		g1 = model.Group("tos_kamiya FanClub", "Kamiya")
 		g2 = model.Group("ObaClub", "Oba")
 		g1.insert(db)
