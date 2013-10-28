@@ -78,6 +78,60 @@ class User(object):
                 store.append(doc["student_id"])
         return store        
 
+class Goal(object):
+    def __init__(self, title):
+        self.title = title
+		
+    def insert(self, db):
+        col = db.portfolio_goals
+        col.insert({
+            "title": self.title})
+			
+    @classmethod
+    def find(clz , db, title):
+        col = db.portfolio_goals
+        docs = col.find({"title": title})
+        docs = list(docs)
+        if len(docs) == 0:
+            return None
+        doc = docs[0]
+        return Goal(doc["title"])
+        
+    @classmethod
+    def delete_all(clz, db):
+        db.drop_collection("portfolio_goals")
+	
+class Goal_item(object):
+	def __init__(self, title, change_data, link_to_goal, visibility):
+		self.title = title
+		self.change_data = change_data 
+		self.link_to_goal = link_to_goal
+		self.visibility = visibility 
+	
+	def insert(self, db):
+		col = db.portfolio_goal_items
+		col.insert({
+			"title": self.title,
+			"change_data": self.change_data,
+			"link_to_goal": self.link_to_goal,
+			"visibility": self.visibility})
+	
+	@classmethod
+	def find(clz , db, title, link_to_goal):
+		col = db.portfolio_goal_items
+		docs = col.find({
+			"title": title,
+			"link_to_goal": link_to_goal})
+		docs = list(docs)
+		if len(docs) == 0:
+			return None
+		doc = docs[0]
+		return Goal_item(doc["title"], doc["change_data"], doc["link_to_goal"], doc["visibility"])
+	
+	@classmethod
+	def delete_all(clz, db):
+		db.drop_collection("portfolio_goal_items")
+	
 db = Connection('localhost', 27017).portbacker
 
 COL_GOALS = "goals"
