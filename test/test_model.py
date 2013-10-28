@@ -8,38 +8,7 @@ import unittest
 from pymongo import Connection
 
 import model
-
-
-class ModelTest(unittest.TestCase):
-    def setUp(self):
-        db = Connection('localhost', 27017).testdata
-        model.db = db
-        db[model.COL_GOALS].drop()
-        db[model.COL_PERSONALLOGS].drop()
-
-    def test_insert_goal_text(self):
-        u = "morohara"
-        gt = u"PHPマスターする"
-
-        goal_texts = model.get_goal_texts(u)
-        self.assertFalse(gt in goal_texts)
-
-        model.insert_goal_text(u, gt)
-        goal_texts = model.get_goal_texts(u)
-        self.assertTrue(gt in goal_texts)
-        
-    def test_remove_goal_text(self):
-        u = "morohara"
-        gt = u"PHPマスターする"
-
-        model.insert_goal_text(u, gt)
-        goal_texts = model.get_goal_texts(u)
-        self.assertTrue(gt in goal_texts)
-
-        model.remove_goal_text(u, gt)
-        goal_texts = model.get_goal_texts(u)
-        self.assertFalse(gt in goal_texts)
-
+		
 class UserTest(unittest.TestCase):
     def test_init(self):
         u = model.User("morohara", "b1012187", ["高度ICT演習教育系"], "情報システム", "B2")
@@ -76,6 +45,7 @@ class UserTest(unittest.TestCase):
         self.assertTrue(act3 == [])                
 
 
+
 class GroupTest(unittest.TestCase):
 	def test_init(self):
 		g1 = model.Group("tos_kamiya FanClub", "Kamiya")
@@ -98,6 +68,51 @@ class GroupTest(unittest.TestCase):
 		self.assertTrue(act1 != None)
 		self.assertTrue(act2 != None)                                                                       
 
+class GoalTest(unittest.TestCase):
+	def test_init(self):
+		t1 = model.Goal("test title")
+
+	def test_insert(self):
+		db = Connection('localhost', 27017).testdata
+		model.Goal.delete_all(db)
+		t1 = model.Goal("test title")
+		t1.insert(db)
+
+	def test_find(self):
+		db = Connection('localhost', 27017).testdata
+		model.Goal.delete_all(db)
+		t1 = model.Goal("test title")
+		t2 = model.Goal("test title1")
+		t1.insert(db)
+		t2.insert(db)
+		act1 = model.Goal.find(db, "test title")
+		act2 = model.Goal.find(db, "test title1")
+		self.assertTrue(act1 != None)
+		self.assertTrue(act2 != None)    
+		
+		
+class Goal_itemTest(unittest.TestCase):
+	def test_init(self):
+		i1 = model.Goal_item("test title","testdata","test goal", False)
+
+	def test_insert(self):
+		db = Connection('localhost', 27017).testdata
+		model.Goal_item.delete_all(db)
+		i1 = model.Goal_item("test title", "testdata", "test goal", False)
+		i1.insert(db)
+
+	def test_find(self):
+		db = Connection('localhost', 27017).testdata
+		model.Goal_item.delete_all(db)
+		i1 = model.Goal_item("test title" , "testdata" , "test goal" , False)
+		i2 = model.Goal_item("test title1" , "testdata1" , "test goal1" , False)
+		i1.insert(db)
+		i2.insert(db)
+		act1 = model.Goal_item.find(db, "test title", "test goal")
+		act2 = model.Goal_item.find(db, "test title1" , "test goal1")
+		self.assertTrue(act1 != None)
+		self.assertTrue(act2 != None) 
+		
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
