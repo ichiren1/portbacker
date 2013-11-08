@@ -12,7 +12,9 @@ class Group(object):
         col.insert({
             "name": self.name,
             "group_id": self.group_id})
+        
             
+
     @classmethod
     def find(clz , db, group_id):
         col = db.portfolio_groups
@@ -80,8 +82,9 @@ class User(object):
 
 class Goal(object):
     def __init__(self, title, username): 
-        self.title = title, username 
-		
+        self.title = title
+        self.title = username 
+
     def insert(self, db):
         col = db.portfolio_goals
         col.insert({
@@ -97,7 +100,7 @@ class Goal(object):
             return None
         doc = docs[0]
         return Goal(doc["title"])
-        
+
     @classmethod
     def delete_all(clz, db, username):
         db.drop_collection("portfolio_goals")
@@ -110,7 +113,7 @@ class Goal_Item(object):
         self.visibility = visibility
         self.username = username
 
-    def insert(self, db):
+    def insert(self, db, username):
         col = db.portfolio_goal_items
         col.insert({
             "title": self.title,
@@ -124,7 +127,8 @@ class Goal_Item(object):
         col = db.portfolio_goal_items
         docs = col.find({
             "title": title,
-            "link_to_goal": link_to_goal})
+            "link_to_goal": link_to_goal,
+            "username" : username})
         docs = list(docs)
         if len(docs) == 0:
             return None
