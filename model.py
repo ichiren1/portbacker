@@ -143,7 +143,7 @@ db = Connection('localhost', 27017).portbacker
 
 COL_GOALS = "goals"
 COL_PERSONALLOGS = "personallogs"
-
+ 
 def get_text_by_user_table_coumn(username, table, column):
     col = db[table]
     docs = col.find({"username": username})
