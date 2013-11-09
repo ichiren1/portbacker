@@ -143,7 +143,7 @@ db = Connection('localhost', 27017).portbacker
 
 COL_GOALS = "goals"
 COL_PERSONALLOGS = "personallogs"
- 
+
 def get_text_by_user_table_coumn(username, table, column):
     col = db[table]
     docs = col.find({"username": username})
@@ -153,11 +153,12 @@ def get_text_by_user_table_coumn(username, table, column):
 
 def get_goal_texts(username):
     goal_texts = get_text_by_user_table_coumn(username, COL_GOALS, "goal_text")
-    return goal_texts
+    ObjectIDs = get_text_by_user_table_coumn(username, COL_GOALS, "_id") # ichirenadd
+    return goal_texts, ObjectIDs
 
-def remove_goal_text(username, goal_text):
+def remove_goal_text(username, _id):
     col = db[COL_GOALS]
-    col.remove({"username": username, "goal_text": goal_text})
+    col.remove({"username": username, "_id": ObjectID})
 
 def insert_goal_text(username, goal_text):
     col = db[COL_GOALS]

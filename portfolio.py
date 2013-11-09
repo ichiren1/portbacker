@@ -108,9 +108,9 @@ def index_page():
 @app.route('/goal', methods=['GET'])
 def goal_get():
     username = session['username']
-    goal_texts = model.get_goal_texts(username)
+    goal_texts, ObjectIDs = model.get_goal_texts(username)
     log_texts = model.get_log_texts(username)
-    return render_template_with_username("goal.html", goal_texts= goal_texts, log_texts=log_texts)
+    return render_template_with_username("goal.html", goal_texts= goal_texts, log_texts=log_texts, ObjectIDs = ObjectIDs)
 
 # goal_textの内容を受け取ってgoal.htmlに渡す 菅野：テキストは渡さないでgoal.htmlからdbにアクセスできるようにしました
 @app.route('/goal', methods=['POST'])
@@ -263,4 +263,3 @@ def page_not_found(error):
 if __name__ == '__main__':
     app.debug = True
     app.run() 
-	

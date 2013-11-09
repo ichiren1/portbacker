@@ -107,9 +107,9 @@ $("#goalcolor").css("color", "#666");
   <h3>ゴール</h3>
       {% for goal_text in goal_texts %}
       <form method="post" action="/goal">
-	{{goal_text}}
-	<input type="hidden" name="rmgoal" value={{goal_text}}>
-	<input type="submit" name="button" class="btn btn-secondly" value="削除"/>
+        {{goal_text}} 
+        <input type="hidden" name="rmgoal" value={{ObjectID}}>
+        <input type="submit" name="button" class="btn btn-secondly" value="削除"/>
       </form>
       {% endfor %}
     </div>
