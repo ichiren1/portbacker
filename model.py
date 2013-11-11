@@ -81,50 +81,51 @@ class User(object):
         return store        
 
 class Goal(object):
-    def __init__(self, title, username): 
+    def __init__(self, username, title): 
         self.title = title
-        self.title = username 
+        self.username = username 
 
     def insert(self, db):
         col = db.portfolio_goals
         col.insert({
             "title": self.title,
-            "username": username})
+            "username": self.username})
 
     @classmethod
-    def find(clz , db, title, username):
+    def find(clz , db, username, title):
         col = db.portfolio_goals
         docs = col.find({"title": title, "username": username})
         docs = list(docs)
         if len(docs) == 0:
             return None
         doc = docs[0]
-        return Goal(doc["title"])
+        return Goal(doc["title"], doc["username"])
 
     @classmethod
-    def delete_all(clz, db, username):
+    def delete_all(clz, db):
         db.drop_collection("portfolio_goals")
 
-class Goal_Item(object):
-    def __init__(self, title, change_data, link_to_goal, visibility, username):
+class GoalItem(object):
+    def __init__(self, username, link_to_goal, title, change_data,visibility):
         self.title = title
+        self.username = username
         self.change_data = change_data 
         self.link_to_goal = link_to_goal
         self.visibility = visibility
-        self.username = username
 
-    def insert(self, db, username):
-        col = db.portfolio_goal_items
+
+    def insert(self, db):
+        col = db.portfolio_goalitems
         col.insert({
             "title": self.title,
+            "username": self.username,
             "change_data": self.change_data,
             "link_to_goal": self.link_to_goal,
-            "visibility": self.visibility,
-            "username": self.username})
+            "visibility": self.visibility})
 
     @classmethod
-    def find(clz , db, title, link_to_goal, username):
-        col = db.portfolio_goal_items
+    def find(clz , db, username , link_to_goal, title):
+        col = db.portfolio_goalitems
         docs = col.find({
             "title": title,
             "link_to_goal": link_to_goal,
@@ -133,11 +134,11 @@ class Goal_Item(object):
         if len(docs) == 0:
             return None
         doc = docs[0]
-        return Goal_item(doc["title"], doc["change_data"], doc["link_to_goal"], doc["visibility"])
+        return GoalItem(doc["title"], doc["username"],doc["change_data"], doc["link_to_goal"], doc["visibility"])
 
     @classmethod
     def delete_all(clz, db):
-        db.drop_collection("portfolio_goal_items")
+        db.drop_collection("portfolio_goalitems")
 
 db = Connection('localhost', 27017).portbacker
 
@@ -151,18 +152,18 @@ def get_text_by_user_table_coumn(username, table, column):
     texts = list(filter(None, texts))
     return texts
 
-def get_goal_texts(username):
-    goal_texts = get_text_by_user_table_coumn(username, COL_GOALS, "goal_text")
-    ObjectIDs = get_text_by_user_table_coumn(username, COL_GOALS, "_id") # ichirenadd
-    return goal_texts, ObjectIDs
+def get_goaltexts(username):
+    goaltexts = get_text_by_user_table_coumn(username, COL_GOALS, "goal_text")
+    ObjectIDs = get_text_by_user_table_coumn(username, COL_GOALS, "ObjectID") # ichirenadd
+    return goaltexts, ObjectIDs
 
-def remove_goal_text(username, _id):
+def remove_goaltext(username, _id):
     col = db[COL_GOALS]
-    col.remove({"username": username, "_id": ObjectID})
+    col.remove({"username": username, "ObjectID": _id })
 
-def insert_goal_text(username, goal_text):
+def insert_goaltext(username, goaltext):
     col = db[COL_GOALS]
-    col.insert({"username": username, "goal_text": goal_text})
+    col.insert({"username": username, "goal_text": goaltext})
 
 def get_log_texts(username):
     log_texts = get_text_by_user_table_coumn(username, COL_PERSONALLOGS, "personallog_text")

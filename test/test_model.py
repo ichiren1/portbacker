@@ -70,46 +70,46 @@ class GroupTest(unittest.TestCase):
 
 class GoalTest(unittest.TestCase):
 	def test_init(self):
-		t1 = model.Goal("test title")
+		t1 = model.Goal("b1012193","test title")
 
 	def test_insert(self):
 		db = Connection('localhost', 27017).testdata
 		model.Goal.delete_all(db)
-		t1 = model.Goal("test title")
+		t1 = model.Goal("b1012193","test title")
 		t1.insert(db)
 
 	def test_find(self):
 		db = Connection('localhost', 27017).testdata
 		model.Goal.delete_all(db)
-		t1 = model.Goal("test title")
-		t2 = model.Goal("test title1")
+		t1 = model.Goal("b1012193","test title")
+		t2 = model.Goal("b1012193","test title1")
 		t1.insert(db)
 		t2.insert(db)
-		act1 = model.Goal.find(db, "test title")
-		act2 = model.Goal.find(db, "test title1")
+		act1 = model.Goal.find(db, "b1012193","test title")
+		act2 = model.Goal.find(db, "b1012193","test title1")
 		self.assertTrue(act1 != None)
 		self.assertTrue(act2 != None)    
 		
 		
-class Goal_itemTest(unittest.TestCase):
+class GoalItemTest(unittest.TestCase):
 	def test_init(self):
-		i1 = model.Goal_item("test title","testdata","test goal", False)
+		i1 = model.GoalItem("username","test goal","test title","testdata", False)
 
 	def test_insert(self):
 		db = Connection('localhost', 27017).testdata
-		model.Goal_item.delete_all(db)
-		i1 = model.Goal_item("test title", "testdata", "test goal", False)
+		model.GoalItem.delete_all(db)
+		i1 = model.GoalItem("username", "test goal","test title", "testdata", False)
 		i1.insert(db)
 
 	def test_find(self):
 		db = Connection('localhost', 27017).testdata
-		model.Goal_item.delete_all(db)
-		i1 = model.Goal_item("test title" , "testdata" , "test goal" , False)
-		i2 = model.Goal_item("test title1" , "testdata1" , "test goal1" , False)
+		model.GoalItem.delete_all(db)
+		i1 = model.GoalItem("username","test goal","test title", "testdata",False)
+		i2 = model.GoalItem("username","test goal1","test title1", "testdata1",False)
 		i1.insert(db)
 		i2.insert(db)
-		act1 = model.Goal_item.find(db, "test title", "test goal")
-		act2 = model.Goal_item.find(db, "test title1" , "test goal1")
+		act1 = model.GoalItem.find(db, "username" , "test goal","test title")
+		act2 = model.GoalItem.find(db, "username" , "test goal1","test title1")
 		self.assertTrue(act1 != None)
 		self.assertTrue(act2 != None) 
 		
